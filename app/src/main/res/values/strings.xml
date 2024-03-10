@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">GithubUserApp_Kotlin</string>
+
+    <string name="name">Muhammad Darrel Prawira</string>
+    <string name="username">dapraws</string>
+    <string name="userlink">https://github.com/dapraws</string>
+
+    <string name="profile_photo">Profile photo</string>
+
+    <string name="search_hint">Search</string>
+    <string name="following">Following</string>
+    <string name="followers">Followers</string>
+    <string name="followers_tab">Followers</string>
+    <string name="following_tab">Following</string>
+</resources>
