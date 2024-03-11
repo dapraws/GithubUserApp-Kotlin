@@ -1,5 +1,6 @@
 package com.example.githubuserapp_kotlin
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
@@ -10,6 +11,7 @@ import com.example.githubuserapp_kotlin.adapter.UserAdapter
 import com.example.githubuserapp_kotlin.data.model.ResponseUserGithub
 import com.example.githubuserapp_kotlin.data.remote.ApiClient
 import com.example.githubuserapp_kotlin.databinding.ActivityMainBinding
+import com.example.githubuserapp_kotlin.detail.DetailActivity
 import com.example.githubuserapp_kotlin.utils.Result
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -25,6 +27,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private val adapter by lazy {
         UserAdapter()
+        Intent(this, DetailActivity::class.java).apply {
+            startActivity(this)
+        }
     }
     private val viewModel by viewModels<MainViewModel>()
     override fun onCreate(savedInstanceState: Bundle?) {
