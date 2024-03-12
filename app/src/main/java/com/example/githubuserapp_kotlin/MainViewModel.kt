@@ -12,6 +12,9 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class MainViewModel : ViewModel() {
 
@@ -19,23 +22,47 @@ class MainViewModel : ViewModel() {
 
     fun getUser() {
         viewModelScope.launch {
-            launch(Dispatchers.Main) {
-                flow {
-                    val response = ApiClient
-                        .githubService
-                        .getUserGithub()
-                    emit(response)
-                }.onStart {
-                    resultUser.value = Result.Loading(true)
-                }.onCompletion {
-                    resultUser.value = Result.Loading(false)
-                }.catch {
-                    Log.e("Error", it.message.toString())
-                    it.printStackTrace()
-                    resultUser.value = Result.Error(it)
-                }.collect {
-                    resultUser.value = Result.Success(it)
-                }
+            flow {
+                val response = ApiClient
+                    .githubService
+                    .getUserGithub()
+
+                emit(response)
+            }.onStart {
+                resultUser.value = Result.Loading(true)
+            }.onCompletion {
+                resultUser.value = Result.Loading(false)
+            }.catch {
+                it.printStackTrace()
+                resultUser.value = Result.Error(it)
+            }.collect {
+                resultUser.value = Result.Success(it)
+            }
+        }
+    }
+
+    fun getUser(username: String) {
+        viewModelScope.launch {
+            flow {
+                val response = ApiClient
+                    .githubService
+                    .searchUserGithub(
+                        mapOf(
+                            "q" to username,
+                            "per_page" to 10
+                        )
+                    )
+                emit(response)
+            }.onStart {
+                resultUser.value = Result.Loading(true)
+            }.onCompletion {
+                resultUser.value = Result.Loading(false)
+            }.catch {
+                Log.e("Error", it.message.toString())
+                it.printStackTrace()
+                resultUser.value = Result.Error(it)
+            }.collect {
+                resultUser.value = Result.Success(it.items)
             }
         }
     }

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.githubuserapp_kotlin.adapter.UserAdapter
@@ -34,6 +35,16 @@ class MainActivity : AppCompatActivity() {
         binding.recyclerView.setHasFixedSize(true)
         binding.recyclerView.adapter = adapter
 
+        binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(p0: String?): Boolean {
+                viewModel.getUser(p0.toString())
+                return true
+            }
+
+            override fun onQueryTextChange(p0: String?): Boolean = false
+
+        })
+
         viewModel.resultUser.observe(this) {
             when (it) {
                 is Result.Success<*> -> {
@@ -49,7 +60,6 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-
 
         viewModel.getUser()
     }

@@ -4,6 +4,7 @@ import com.example.githubuserapp_kotlin.data.model.ResponseDetailUser
 import com.example.githubuserapp_kotlin.data.model.ResponseUserGithub
 import retrofit2.http.GET
 import retrofit2.http.Path
+import retrofit2.http.QueryMap
 
 interface GithubService {
 
@@ -22,4 +23,8 @@ interface GithubService {
     @JvmSuppressWildcards
     @GET("users/{username}/following")
     suspend fun getFollowingUserGithub(@Path("username") username: String): MutableList<ResponseUserGithub.Item>
+
+    @JvmSuppressWildcards
+    @GET("search/users")
+    suspend fun searchUserGithub(@QueryMap params: Map<String, Any>): ResponseUserGithub
 }
