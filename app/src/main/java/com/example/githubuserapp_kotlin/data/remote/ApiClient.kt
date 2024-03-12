@@ -1,5 +1,7 @@
 package com.example.githubuserapp_kotlin.data.remote
 
+import com.example.githubuserapp_kotlin.BuildConfig
+import com.google.gson.internal.GsonBuildConfig
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -20,7 +22,7 @@ object ApiClient {
         .build()
 
     private val retrofit = Retrofit.Builder()
-        .baseUrl("https://api.github.com/")
+        .baseUrl(BuildConfig.API_URL)
         .client(okhttp)
         .addConverterFactory(GsonConverterFactory.create())
         .build()

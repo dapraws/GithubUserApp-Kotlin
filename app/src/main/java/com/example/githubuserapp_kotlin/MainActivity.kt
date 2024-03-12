@@ -9,26 +9,19 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.githubuserapp_kotlin.adapter.UserAdapter
 import com.example.githubuserapp_kotlin.data.model.ResponseUserGithub
-import com.example.githubuserapp_kotlin.data.remote.ApiClient
 import com.example.githubuserapp_kotlin.databinding.ActivityMainBinding
 import com.example.githubuserapp_kotlin.detail.DetailActivity
 import com.example.githubuserapp_kotlin.utils.Result
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.onCompletion
-import kotlinx.coroutines.flow.onStart
-import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private val adapter by lazy {
-        UserAdapter()
-        Intent(this, DetailActivity::class.java).apply {
-            startActivity(this)
+        UserAdapter {
+            Intent(this, DetailActivity::class.java).apply {
+                putExtra("username", it.login)
+                startActivity(this)
+            }
         }
     }
     private val viewModel by viewModels<MainViewModel>()
@@ -52,7 +45,7 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 is Result.Loading -> {
-                    binding.progressBar.isVisible = true
+                    binding.progressBar.isVisible = it.isLoading
                 }
             }
         }
