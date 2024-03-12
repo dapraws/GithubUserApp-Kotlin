@@ -1,4 +1,4 @@
-package com.example.githubuserapp_kotlin
+package com.example.githubuserapp_kotlin.main
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
@@ -6,15 +6,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.githubuserapp_kotlin.data.remote.ApiClient
 import com.example.githubuserapp_kotlin.utils.Result
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class MainViewModel : ViewModel() {
 

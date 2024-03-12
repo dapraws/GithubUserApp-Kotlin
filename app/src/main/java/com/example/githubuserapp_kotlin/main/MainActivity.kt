@@ -1,4 +1,4 @@
-package com.example.githubuserapp_kotlin
+package com.example.githubuserapp_kotlin.main
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
