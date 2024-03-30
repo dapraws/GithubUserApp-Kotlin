@@ -3,7 +3,10 @@ package com.example.githubuserapp_kotlin.main
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
+import com.example.githubuserapp_kotlin.data.local.SettingPreferences
 import com.example.githubuserapp_kotlin.data.remote.ApiClient
 import com.example.githubuserapp_kotlin.utils.Result
 import kotlinx.coroutines.flow.catch
@@ -12,9 +15,11 @@ import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 
-class MainViewModel : ViewModel() {
+class MainViewModel(private val preferences: SettingPreferences) : ViewModel() {
 
     val resultUser = MutableLiveData<Result>()
+
+    fun getTheme() = preferences.getThemeSetting().asLiveData()
 
     fun getUser() {
         viewModelScope.launch {
@@ -61,5 +66,12 @@ class MainViewModel : ViewModel() {
                 resultUser.value = Result.Success(it.items)
             }
         }
+    }
+
+    class Factory(private val preferences: SettingPreferences) :
+        ViewModelProvider.NewInstanceFactory() {
+
+        override fun <T : ViewModel> create(modelClass: Class<T>): T =
+            MainViewModel(preferences) as T
     }
 }

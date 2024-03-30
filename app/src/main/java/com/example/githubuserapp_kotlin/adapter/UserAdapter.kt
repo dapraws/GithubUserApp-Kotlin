@@ -27,8 +27,8 @@ class UserAdapter(
             }
 
             v.tvItemUsername.text = item.login
-            
-            v.tvItemUrl.text = item.url
+
+            v.tvHtmlItemUrl.text = item.html_url
         }
     }
 

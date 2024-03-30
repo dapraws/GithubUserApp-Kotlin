@@ -1,5 +1,6 @@
 package com.example.githubuserapp_kotlin.detail.follow
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -14,6 +15,7 @@ import com.example.githubuserapp_kotlin.R
 import com.example.githubuserapp_kotlin.adapter.UserAdapter
 import com.example.githubuserapp_kotlin.data.model.ResponseUserGithub
 import com.example.githubuserapp_kotlin.databinding.FragmentFollowBinding
+import com.example.githubuserapp_kotlin.detail.DetailActivity
 import com.example.githubuserapp_kotlin.detail.DetailViewModel
 import com.example.githubuserapp_kotlin.utils.Result
 
@@ -24,7 +26,7 @@ class FollowFragment : Fragment() {
 
     private val adapter by lazy {
         UserAdapter {
-
+            
         }
     }
 
